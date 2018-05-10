@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="easily make a list of your shopping items and track your shopping expense">
+  <link rel="manifest" href="/manifest.json">
+  <title>Shopping List</title>
+
+  <link rel="stylesheet" href="/resources/mdl/material-icons.css">
+  <link rel="stylesheet" href="/resources/mdl/material.indigo-pink.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/resources/mdl/material.min.js"></script>
+  <script src="/resources/dialog-polyfill/dialog-polyfill.js"></script>
+  <link rel="stylesheet" href="/resources/dialog-polyfill/dialog-polyfill.css" />
+
+  <!-- App Name -->
+  <meta name="apple-mobile-web-app-title" content="Shopping List">
+  <meta name="application-name" content="Shopping List">
+
+  <!-- App Capable -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/icons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#00aba9">
+
+  <meta name="msapplication-TileColor" content="#00aba9">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#00aba9">
+
+  <style>
+    login {
+      cursor: pointer;
+    }
+
+    logout {
+      cursor: pointer;
+    }
+
+    register {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <navigation v-bind:is-logged-in="isLoggedIn" v-bind:toggle-logged-in="toggleLoggedIn"></navigation>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <!-- Your content goes here -->
+          <div class="center">
+            <h2>List</h2>
+          </div>
+
+          <div>
+            <form v-on:submit.prevent="onSubmit">
+              <div class="mdl-grid center-items">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="new-item-name" v-model="name">
+                  <label class="mdl-textfield__label" for="new-item-name">Item Name</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="number" id="new-item-cost" v-model="cost">
+                  <label class="mdl-textfield__label" for="new-item-cost">Item Cost</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="number" id="new-item-quantity" v-model="quantity">
+                  <label class="mdl-textfield__label" for="new-item-quantity">Quantity</label>
+                </div>
+              </div>
+
+              <div class="mdl-grid center-items">
+                <button id="add-item" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                  Add Item
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="mdl-grid center-items">
+            <table id="item-table" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric">Item Name</th>
+                  <th class="mdl-data-table__cell--non-numeric">Cost</th>
+                  <th class="mdl-data-table__cell--non-numeric">Quantity</th>
+                  <th class="mdl-data-table__cell">Sub-total</th>
+                  <th class="mdl-data-table__cell--non-numeric">
+                    <button class="mdl-button mdl-js-button mdl-button--icon">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <tr v-for="item in items" :key="item._id">
+                  <td class="mdl-data-table__cell--non-numeric">{{ item.name}}</td>
+                  <td class="mdl-data-table__cell--non-numeric">{{ item.cost}}</td>
+                  <td class="mdl-data-table__cell--non-numeric">{{ item.quantity}}</td>
+                  <td class="mdl-data-table__cell">{{ item.subTotal}}</td>
+                  <td class="mdl-data-table__cell--non-numeric">
+                    <button @click="deleteRow(item._id)" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                      <i class="material-icons">remove</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mdl-grid center-items">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <!-- <input class="mdl-textfield__input" type="number" id="total-cost" readonly value="0">
+              <label class="mdl-textfield__label" for="cost">Total Item Cost</label> -->
+              <h4>Total Cost: {{ total }}</h4>
+            </div>
+
+          </div>
+
+          <div class="mdl-grid center-items">
+            <button @click="saveList" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              Save List
+            </button>
+          </div>
+
+          <div class="mdl-grid center-items">
+            <div id="toast" class="mdl-js-snackbar mdl-snackbar">
+              <div class="mdl-snackbar__text"></div>
+              <button class="mdl-snackbar__action" type="button"></button>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <login-dialog v-bind:toggle-logged-in="toggleLoggedIn"></login-dialog>
+    <register-dialog v-bind:toggle-logged-in="toggleLoggedIn">
+    </register-dialog>
+
+  </div>
+
+  <script src="/hoodie/client.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="js/src/shared.js"></script>
+  <script src="js/src/index.js"></script>
+</body>
+
+</html>
