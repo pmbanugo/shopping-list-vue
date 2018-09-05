@@ -7,8 +7,8 @@ Find accompanying tutorial on [DEV](https://dev.to/pmbanugo/from-vanillajs-to-vu
 ## Setup
 
 ```
-git clone https://github.com/pmbanugo/shopping-list.git
-cd shopping-list
+git clone https://github.com/pmbanugo/shopping-list-vue.git
+cd shopping-list-vue
 npm install
 npm run-script build
 npm start
