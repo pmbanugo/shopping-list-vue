@@ -1,23 +1,27 @@
-importScripts('workbox-sw.prod.v2.1.2.js');
+/**
+ * Welcome to your Workbox-powered service worker!
+ *
+ * You'll need to register this file in your web app and you should
+ * disable HTTP caching for this file too.
+ * See https://goo.gl/nhQhGp
+ *
+ * The rest of the code is auto-generated. Please don't update this file
+ * directly; instead, make changes to your Workbox build configuration
+ * and re-run your build process.
+ * See https://goo.gl/2aRDsh
+ */
+
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
+
+workbox.skipWaiting();
+workbox.clientsClaim();
 
 /**
- * DO NOT EDIT THE FILE MANIFEST ENTRY
- *
- * The method precache() does the following:
- * 1. Cache URLs in the manifest to a local cache.
- * 2. When a network request is made for any of these URLs the response
- *    will ALWAYS comes from the cache, NEVER the network.
- * 3. When the service worker changes ONLY assets with a revision change are
- *    updated, old cache entries are left as is.
- *
- * By changing the file manifest manually, your users may end up not receiving
- * new versions of files because the revision hasn't changed.
- *
- * Please use workbox-build or some other tool / approach to generate the file
- * manifest which accounts for changes to local files and update the revision
- * accordingly.
+ * The workboxSW.precacheAndRoute() method efficiently caches and responds to
+ * requests for URLs in the manifest.
+ * See https://goo.gl/S9QRab
  */
-const fileManifest = [
+self.__precacheManifest = [
   {
     "url": "css/style.css",
     "revision": "99559afa2b600e50f33cebcb12bd35e6"
@@ -32,35 +36,7 @@ const fileManifest = [
   },
   {
     "url": "index.html",
-    "revision": "a460728efcd7b58e5bcea7d7eca20a80"
-  },
-  {
-    "url": "js/transpiled/history.js",
-    "revision": "a9246962a7f7ab624e493b89bdab284b"
-  },
-  {
-    "url": "js/transpiled/history.old.js",
-    "revision": "f5d6af7aff37147b0c82043fe3153828"
-  },
-  {
-    "url": "js/transpiled/index.js",
-    "revision": "6584dc7f82d33ffa0151f633f4fcd7f8"
-  },
-  {
-    "url": "js/transpiled/index.old.js",
-    "revision": "3b5384eca25ad783829434ee190ecb58"
-  },
-  {
-    "url": "js/transpiled/shared.1.js",
-    "revision": "38039d6e28ad31c85c4adc0c4bab2dc9"
-  },
-  {
-    "url": "js/transpiled/shared.js",
-    "revision": "50ae8748065c52e18b0b7adfb4d82b1e"
-  },
-  {
-    "url": "js/transpiled/shared.old.js",
-    "revision": "38039d6e28ad31c85c4adc0c4bab2dc9"
+    "revision": "2fb78999abf6a9d55ce484f7e2bd537c"
   },
   {
     "url": "manifest.json",
@@ -98,10 +74,6 @@ const fileManifest = [
     "url": "/hoodie/client.js",
     "revision": "1d95959fa58dcb01884b0039bd16cc6d"
   }
-];
-
-const workboxSW = new self.WorkboxSW({
-  "skipWaiting": true,
-  "clientsClaim": true
-});
-workboxSW.precache(fileManifest);
+].concat(self.__precacheManifest || []);
+workbox.precaching.suppressWarnings();
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
