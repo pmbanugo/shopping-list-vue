@@ -52,10 +52,8 @@ Vue.component("navigation", {
         .signOut()
         .then(() => {
           this.toggleLoggedIn();
-          location.href = location.origin;
         })
         .catch(error => {
-          console.log(error);
           alert("Could not logout");
         });
     }

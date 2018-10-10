@@ -1,5 +1,12 @@
 const vm = new Vue({
   el: "#app",
+  data: {
+    name: "",
+    cost: "",
+    quantity: "",
+    items: [],
+    isLoggedIn: false
+  },
   computed: {
     // a computed getter
     total: function() {

@@ -32,11 +32,23 @@ self.__precacheManifest = [
   },
   {
     "url": "history.html",
-    "revision": "fa4bab17ed8f01ef73fad137fa50c091"
+    "revision": "43b5bbbdf13657a75ad8344edc353414"
   },
   {
     "url": "index.html",
-    "revision": "2fb78999abf6a9d55ce484f7e2bd537c"
+    "revision": "b7c12d2eaf3fea78724f4bd8704537f6"
+  },
+  {
+    "url": "js/history.js",
+    "revision": "4b72f57010e65fdbe5ed6371ce3b3457"
+  },
+  {
+    "url": "js/index.js",
+    "revision": "01a420e6b4cbabcfd949cacddb5aa3c1"
+  },
+  {
+    "url": "js/shared.js",
+    "revision": "341e90bbcf10302227dfd497981748e3"
   },
   {
     "url": "manifest.json",
