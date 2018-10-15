@@ -6,6 +6,6 @@ module.exports = {
   skipWaiting: true,
   clientsClaim: true,
   templatedUrls: {
-    "/hoodie/client.js": "../.hoodie/cleint.js"
+    "/hoodie/client.js": ".hoodie/cleint.js"
   }
 };
