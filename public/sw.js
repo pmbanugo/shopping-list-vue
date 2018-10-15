@@ -24,7 +24,7 @@ workbox.clientsClaim();
 self.__precacheManifest = [
   {
     "url": "css/style.css",
-    "revision": "99559afa2b600e50f33cebcb12bd35e6"
+    "revision": "291a7a8e7ccb8134fc571d2f9b9d7f7c"
   },
   {
     "url": "favicon.ico",
@@ -32,23 +32,23 @@ self.__precacheManifest = [
   },
   {
     "url": "history.html",
-    "revision": "43b5bbbdf13657a75ad8344edc353414"
+    "revision": "723688a0e7839619d9c87544086d11bf"
   },
   {
     "url": "index.html",
-    "revision": "b7c12d2eaf3fea78724f4bd8704537f6"
+    "revision": "f091595a5a8b38a92783077f9974bd35"
   },
   {
     "url": "js/history.js",
-    "revision": "4b72f57010e65fdbe5ed6371ce3b3457"
+    "revision": "ed6f6d7a0416451ed15b3da1707d7d9a"
   },
   {
     "url": "js/index.js",
-    "revision": "01a420e6b4cbabcfd949cacddb5aa3c1"
+    "revision": "24e6f2dd0dc45090eff8f0152a85ce9b"
   },
   {
     "url": "js/shared.js",
-    "revision": "341e90bbcf10302227dfd497981748e3"
+    "revision": "cc607d8d4b61d3ef7b7428372ddb76ed"
   },
   {
     "url": "manifest.json",
@@ -79,12 +79,12 @@ self.__precacheManifest = [
     "revision": "570eb83859dc23dd0eec423a49e147fe"
   },
   {
-    "url": "resources/system.js",
-    "revision": "c6b00872dc6e21c1327c08b0ba55e275"
+    "url": "resources/vue@2.5.16.js",
+    "revision": "cbe2b9b2fb6955decf033515d079e44b"
   },
   {
     "url": "/hoodie/client.js",
-    "revision": "1d95959fa58dcb01884b0039bd16cc6d"
+    "revision": "58d56aa9048b355d31e3c3e6f5d64e83"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

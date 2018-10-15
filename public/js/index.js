@@ -8,9 +8,7 @@ const vm = new Vue({
     isLoggedIn: false
   },
   computed: {
-    // a computed getter
     total: function() {
-      // `this` points to the vm instance
       return this.items.reduce(
         (accumulator, currentValue) => accumulator + currentValue.subTotal,
         0
@@ -45,7 +43,7 @@ const vm = new Vue({
       hoodie.store.withIdPrefix("item").remove(itemId);
     },
 
-    saveList: function(event) {
+    saveList: function() {
       hoodie.store
         .withIdPrefix("item")
         .findAll()
@@ -79,33 +77,34 @@ const vm = new Vue({
             });
         });
     }
-  }
-});
+  },
+  created() {
+    hoodie.store.withIdPrefix("item").on("add", item => vm.items.push(item));
 
-//retrieve items on the current list and display on the page
-hoodie.store
-  .withIdPrefix("item")
-  .findAll()
-  .then(items => (vm.items = items));
+    //retrieve items on the current list and display on the page
+    hoodie.store
+      .withIdPrefix("item")
+      .findAll()
+      .then(items => (vm.items = items));
 
-hoodie.store.withIdPrefix("item").on("add", item => vm.items.push(item));
+    hoodie.store
+      .withIdPrefix("item")
+      .on(
+        "remove",
+        deletedItem =>
+          (vm.items = vm.items.filter(item => item._id !== deletedItem._id))
+      );
 
-hoodie.store
-  .withIdPrefix("item")
-  .on(
-    "remove",
-    deletedItem =>
-      (vm.items = vm.items.filter(item => item._id !== deletedItem._id))
-  );
-
-hoodie.account.get("session").then(function(session) {
-  if (!session) {
-    // user is singed out
-    vm.isLoggedIn = false;
-  } else if (session.invalid) {
-    vm.isLoggedIn = false;
-  } else {
-    // user is signed in
-    vm.isLoggedIn = true;
+    hoodie.account.get("session").then(function(session) {
+      if (!session) {
+        // user is singed out
+        vm.isLoggedIn = false;
+      } else if (session.invalid) {
+        vm.isLoggedIn = false;
+      } else {
+        // user is signed in
+        vm.isLoggedIn = true;
+      }
+    });
   }
 });

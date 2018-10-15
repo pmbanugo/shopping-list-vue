@@ -52,6 +52,7 @@ Vue.component("navigation", {
         .signOut()
         .then(() => {
           this.toggleLoggedIn();
+          window.location.reload();
         })
         .catch(error => {
           alert("Could not logout");
